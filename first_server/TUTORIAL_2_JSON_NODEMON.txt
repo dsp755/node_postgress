@@ -1,0 +1,37 @@
+======================================== NODEMON ===============================================
+
+1. Устанавливаем nodemon
+
+npm i nodemon --save-dev
+(--save-dev нужен для установки пакета только для стадии разработки, а не для продакшна)
+
+2. Прописываем в package.json скрипт для запуска приложения через nodemon
+
+    "dev": "nodemon index"
+
+3. ВНУТРИ КОЛЛБЭКА Присваиваем переменной url путь, который содержится в запросе.
+
+const { url } = req
+(это деконстракт, т.е. то же самое, что const url = req.url)
+
+4. ВНУТРИ КОЛЛБЭКА создадим условие
+
+  if (url === '/translations') {
+
+    const translations = { 1: 'one', 2: 'two', 3: 'three' }
+
+    res.setHeader('Content-Type', 'application/json')
+
+    res.write(JSON.stringify(translations))
+
+    res.end()
+
+  }
+
+Метод write используется для записи данных в stream of data (поток данных в Node). Этот метод принимает аргументом только строку, поэтому преобразуем объект JSON в строку с помощью метода JSON.stringify
+
+
+
+
+
+

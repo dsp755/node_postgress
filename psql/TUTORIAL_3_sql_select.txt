@@ -1,0 +1,18 @@
+1. Примеры команд:
+
+SELECT * FROM wizards;
+
+SELECT * FROM wizards WHERE name = 'sauron';
+
+SELECT * FROM wizards, hobbits, elves;
+
+SELECT * FROM elves ORDER BY speed; 
+
+SELECT * FROM elves ORDER BY speed ASC;
+
+SELECT * FROM elves ORDER BY speed DESC;
+
+SELECT * FROM elves LIMIT 2;
+
+SELECT * FROM elves WHERE speed > 9;
+

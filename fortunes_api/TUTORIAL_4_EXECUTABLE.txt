@@ -1,0 +1,40 @@
+====================================== EXECUTABLE (OPTIONAL) ====================================
+
+Цель - перенести запуск приложения из файла index в файл bin/www, чтобы отделить код запуска приложения от самого приложения
+
+1. Переименуем файл index.js в app.js
+
+Переносим некоторые строки из app.js в www
+
+Теперь наш app.js выглядит так:
+
+const express = require('express')
+const fortunes = require('./data/fortunes.json')
+
+const app = express()
+
+app.get('/fortunes', (req, res) => {
+  res.json(fortunes)
+})
+
+module.exports = app
+
+
+2. В корневой папке проекта создаем папку bin
+
+Внутри этой папки создаем файл www без расширения
+
+Файлы в папке bin отвечают за запуск приложения
+
+3. Структура файла www
+
+Первая строка, начинающаяся с #! называется shebang line. Она указывает системе, что это exe файл, и что для запуска этого файла следует использовать node.
+
+#!/usr/bin/env node
+
+const app = require('../app.js')
+
+const port = 3000
+
+app.listen(port, () => console.log(`Listening on port ${port}`))
+

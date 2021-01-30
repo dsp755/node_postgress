@@ -1,0 +1,43 @@
+1. Many-to-many relation
+
+CREATE TABLE allies(
+  wizard character varying(50),
+  elf character varying(50)
+);
+
+INSERT INTO allies(wizard, elf)
+VALUES
+('Gendalf', 'Legolas'),
+('Gendalf', 'Arwen'),
+('Saruman', 'Elrond'),
+('Saruman', 'Legolas');
+
+Gendalf, как и Saruman, каждый относятся к двум эльфам, а Legolas - к двум волшебникам.
+
+2. One-to-one relation
+
+
+CREATE TABLE guardians(
+  elf character varying(50),
+  hobbit character varying(50)
+);
+
+INSERT INTO guardians(elf, hobbit)
+VALUES
+('Legolas', 'Frodo'),
+('Arwen', 'Sam'),
+('Elrond', 'Bilbo');
+
+
+3. One-to-many relation
+
+CREATE TABLE guardians(
+  elf character varying(50),
+  hobbit character varying(50)
+);
+
+INSERT INTO guardians(elf, hobbit)
+VALUES
+('Legolas', 'Frodo'),
+('Legolas', 'Sam'),
+('Legolas', 'Bilbo');

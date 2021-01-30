@@ -1,0 +1,58 @@
+========================================== PUT ===============================================
+
+1. Обычный PUT-запрос выглядит следующим образом
+
+app.put('/fortunes/:id', (req, res) => {
+  const { id } = req.params
+  const { message, lucky_number, spirit_animal } = req.body
+  const old_fortune = fortunes.find(f => f.id == id)
+
+  if (message) old_fortune.message = message
+  if (lucky_number) old_fortune.lucky_number = lucky_number
+  if (spirit_animal) old_fortune.spirit_animal = spirit_animal
+
+  fs.writeFile('./data/fortunes.json', JSON.stringify(fortunes), err => console.log(err))
+
+  res.json(fortunes)
+})
+
+
+const { id } = req.params здесь в урле запроса мы указываем, объект с каким id мы хотим исправить.
+
+old_fortune - референс к объекту из JSON-массива. Т.е. когда мы изменяем свойства в референсе, мы их перезаписываем. Далее с помощью fs.writeFile мы производим перезапись в исходный JSON-файл.
+
+if мы используем, чтобы в случае, когда мы не указываем в запросе какое-то свойство, оно не исчезло из исходного объекта.
+
+				    БОЛЕЕ КРАТКАЯ ВЕРСИЯ
+const writeFile = json => {
+  fs.writeFile('./data/fortunes.json', JSON.stringify(json), err => console.log(err))
+}
+
+
+app.put('/fortunes/:id', (req, res) => {
+  const { id } = req.params
+  const old_fortune = fortunes.find(f => f.id == id)
+
+  const keys = [ 'message', 'lucky_number', 'spirit_animal' ]
+  
+  keys.forEach(key => {
+    if (req.body[key]) old_fortune[key] = req.body[key]
+  })
+
+  writeFile(fortunes)
+
+  res.json(fortunes)
+})
+
+==================================== ФУНКЦИЯ ДЛЯ ЗАПИСИ =========================================
+
+1. Чтобы не прописывать данную конструкцию в описании каждого метода
+
+fs.writeFile('./data/fortunes.json', JSON.stringify(fortunes), err => console.log(err))
+
+мы можем на верхнем уровне создать следующую функцию
+
+const writeFile = json => {
+  fs.writeFile('./data/fortunes.json', JSON.stringify(json), err => console.log(err))
+}
+

@@ -1,0 +1,22 @@
+========================================== DELETE ===============================================
+
+const writeFile = json => {
+  fs.writeFile('./data/fortunes.json', JSON.stringify(json), err => console.log(err))
+}
+
+
+app.delete('/fortunes/:id', (req, res) => {
+  const { id } = req.params
+  const new_fortunes = fortunes.filter(f => f.id != id)
+
+  
+  writeFile(new_fortunes)
+
+  res.json(new_fortunes)
+})
+
+1. Создаем новый массив объектов new_fortunes, в который не будет входить объект с тем id, который указан в req.params.id
+
+2. Записываем новый массив вместо старого.
+
+

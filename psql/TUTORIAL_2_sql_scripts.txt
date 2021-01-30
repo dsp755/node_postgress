@@ -1,0 +1,31 @@
+1. Создание SQL-скрипта
+
+code creaturesdb.sql
+
+- создает и открывает в редакторе файл creaturesdb.sql
+
+CREATE TABLE wizards(
+  name character varying(50),
+  power character varying(50)
+);
+
+INSERT INTO wizards(name, power)
+VALUES
+('Gandalf', 'fireworks'),
+('Sauron', 'rings'),
+('Saruman', 'betrayal');
+
+2. Запуск SQL-скрипта
+
+psql -U postgres creaturesdb < creatures.sql
+
+ЕСЛИ ВЫЛЕЗАЕТ ОШИБКА stdin is not a tty, НУЖНО ДОБАВИТЬ .exe после psql
+
+psql.exe -U postgres creaturesdb < creatures.sql
+
+Заходим в БД и проверяем, все ли вставилось
+
+psql -U postgres creaturesdb
+
+\d
+

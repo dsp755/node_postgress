@@ -1,0 +1,54 @@
+========================================== POST ===============================================
+
+1. npm i body-parser
+
+В app.js импортируем body-parser
+
+const bodyParser = require('body-parser')
+
+
+2. Затем с помощью метода app.use(bodyParser.json()) мы указываем приложению (экспрессу) использовать body-parser
+
+Это позволит нам получать и парсить json-данные, которые будут приходить на наш api в виде объектов от пользователей.
+
+3. Создаем метод post
+
+Теперь наш главный аргумент - req (в отличие от res в методе get)
+
+4. curl
+
+-H = Header
+-X = типа запроса (пост или гет)
+-d = данные (после него пишем данные, которые посылаем)
+
+curl -H "Content-Type: application/json" -X POST -d '{"message": "Hello", "lucky_number": "5", "spirit_animal": "Dog"}' http://localhost:3000/fortunes
+
+
+5. Добавляем метод post в наш app.js
+
+app.post('/fortunes', (req, res) => {
+  console.log(req.body)
+
+  const { message, lucky_number, spirit_animal } = req.body
+
+  const fortune_ids = fortunes.map(f => f.id)
+
+  const fortune = { 
+    id: fortune_ids.length > 0 ? Math.max(...fortune_ids) + 1 : 1, 
+    message, 
+    lucky_number, 
+    spirit_animal 
+  }
+
+  const new_fortunes = fortunes.concat(fortune)
+
+  fs.writeFile('../data/fortunes.json', JSON.stringify(new_fortunes), err => console.log(err))
+
+  res.json(new_fortunes)
+})
+
+В начало файла нужно импортировать const fs = require('fs')
+
+Далее, когда мы выполним в консоли вышеупомянутый curl, в наш json добавится объект, который мы высылаем методом post через наш curl-запрос.
+
+

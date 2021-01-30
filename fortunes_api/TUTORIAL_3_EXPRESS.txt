@@ -1,0 +1,50 @@
+========================================= EXPRESS ===============================================
+
+1. npm i nodemon --save-dev
+
+2. npm i express
+
+3. Создаем JSON-файл с массивом данных.
+
+JSON-файл состоит из массива объектов, каждый из которых содержит свой id.
+Пример:
+
+[
+  {
+    "id": 1,
+    "message": "Love is around the corner.",
+    "lucky_number": 12,
+    "spirit_animal": "Dog"
+  }
+]
+
+5. Создаем файл index.js с настройкой экспресса. В этом примере наш api отвечает пользователю html-строкой.
+
+const express = require('express')
+
+const port = 3000
+
+const app = express()
+
+app.get('/fortunes', (req, res) => {
+  res.send('<h1>Requesting fortunes</h1>')
+})
+
+app.listen(port, () => console.log(`Listening on port ${port}`))
+
+
+В ЭТОМ ПРИМЕРЕ наш api отвечает пользователю данными из JSON-файла.
+
+const express = require('express')
+const fortunes = require('./data/fortunes.json')
+
+const port = 3000
+
+const app = express()
+
+app.get('/fortunes', (req, res) => {
+  res.json(fortunes)
+})
+
+app.listen(port, () => console.log(`Listening on port ${port}`))
+
